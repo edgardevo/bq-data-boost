@@ -37,15 +37,13 @@ def ingest_to_bigquery(table_suffix:str, uri:str)->None:
     job.result()
 
 def get_number_of_rows(table_suffix) -> int:
-    full_table_id = table_id+table_suffix
-    sql_query = (
-                f"SELECT count(*) FROM {full_table_id}"
-            )
     bq_client = bigquery.Client()
+    full_table_id = table_id+table_suffix
+    sql_query = f"SELECT count(*) FROM {full_table_id}"
     query_job = bq_client.query(sql_query)
     result = query_job.result()
     row = next(result)
-    return row[0] or 0
+    return row[0]
 
 print(f"Uploading a CSV file to {destination} in bucket {bucket_name}")
 upload_blob(bucket_name, "batch-ingestion/ny_city_bike_trips.csv", destination)
