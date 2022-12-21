@@ -8,7 +8,7 @@ environ["GOOGLE_APPLICATION_CREDENTIALS"] = pub_sub_credentials
 # Initalize a pub/sub client
 publisher = pubsub_v1.PublisherClient()
 
-message = "Hello pub/sub message to bigquery"
+message = "Type it here:  no volunteers"
 
 # date and user are part of the metadata of the message. The data is the message published
 publish_job = publisher.publish(topic_path, data=message.encode("utf-8"), date=date, user=user)
